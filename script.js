@@ -32,7 +32,7 @@ async function getpost(){
 }
 
 function filteredText(){
-    const filtertxt = filter.value.toUpperCase();
+    const filtertxt = filter.value.toUpperCase().trim();
     const posts = document.querySelectorAll('.post');
     posts.forEach(post=>{
         
