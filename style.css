@@ -15,6 +15,11 @@ body {
     justify-content: center;
 }
 
+mark { 
+    color: black; 
+    background: yellow; 
+}
+
 #filter{
     height:50px;
     width:50vw;

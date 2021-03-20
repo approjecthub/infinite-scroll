@@ -5,6 +5,7 @@ const loader = document.getElementsByClassName('loader')[0];
 let page = 1
 let limit = 3
 let totalpost = 100
+let allposts = []
 
 async function getpost(){
     const posts = await fetch(`
@@ -23,6 +24,7 @@ async function getpost(){
           </p>
         </div>
         `
+        allposts.push(element)
         postsContainer.appendChild(post)
     });
     totalpost -= 3
@@ -33,9 +35,17 @@ function filteredText(){
     const filtertxt = filter.value.toUpperCase();
     const posts = document.querySelectorAll('.post');
     posts.forEach(post=>{
-        const postheading = post.getElementsByClassName('post-title')[0].innerHTML;
-        const postbody = post.getElementsByClassName('post-body')[0].innerHTML;
+        
+        const postid = post.getElementsByClassName('number')[0].innerHTML;
+        const postheading = allposts.filter(ele=> ele.id==postid)[0].title;
+        const postbody = allposts.filter(ele=> ele.id==postid)[0].body;
+        const markPostHeading = new Mark(post.getElementsByClassName('post-title')[0]);
+        const markPostBody = new Mark(post.getElementsByClassName('post-body')[0]);
+        markPostHeading.unmark();
+        markPostBody.unmark();
         if (postheading.toUpperCase().indexOf(filtertxt) > -1 || postbody.toUpperCase().indexOf(filtertxt) > -1) {
+            markPostHeading.mark(filtertxt,{ element:'mark' } )
+            markPostBody.mark(filtertxt,{ element:'mark' } )
             post.style.display = "block";
           } else {
             post.style.display = "none";
